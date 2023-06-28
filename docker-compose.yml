@@ -1,0 +1,50 @@
+  version: '3'
+
+  services:
+    node:
+      container_name: nodejs
+      image: joeejr/nodejs
+      build:
+        context: .
+      volumes:
+        - ./:/usr/src/app
+      ports: 
+        - "3000:3000"
+      tty: true
+      networks: 
+        - nginx-node
+      depends_on:
+        - db
+    
+    nginx:
+      container_name: nginx
+      build:
+        context: ./nginx
+      volumes:
+        - ./nginx:/etc/nginx/conf.d
+      ports: 
+        - "8080:80"
+      networks: 
+        - nginx-node
+      depends_on:
+        - node
+
+    db:
+      image: mysql:5.7
+      command: --innodb-use-native-aio=0
+      container_name: mysql
+      restart: always
+      tty: true
+      environment:
+        - MYSQL_ROOT_PASSWORD=root
+      volumes:
+        - ./mysql:/var/lib/mysql
+        - ./scripts:/docker-entrypoint-initdb.d
+      networks: 
+        - nginx-node
+      ports:
+        - "3306:3306"
+
+  networks:
+    nginx-node:
+      driver: bridge
