@@ -38,7 +38,9 @@
       environment:
         - MYSQL_ROOT_PASSWORD=root
       volumes:
-        - ./mysql:/var/lib/mysql
+        - type: bind
+          source: ./mysql
+          target: /var/lib/mysql
       networks: 
         - nginx-node
       ports:
