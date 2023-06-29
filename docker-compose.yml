@@ -39,7 +39,7 @@
         - MYSQL_ROOT_PASSWORD=root
       volumes:
         - type: bind
-          source: ./mysql
+          source: .
           target: /var/lib/mysql
       networks: 
         - nginx-node
