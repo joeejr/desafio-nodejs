@@ -30,7 +30,7 @@
         - node
 
     db:
-      build: ./mysql/build
+      build: ./build
       command: --innodb-use-native-aio=0
       container_name: mysql
       restart: always
