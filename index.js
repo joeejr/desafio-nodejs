@@ -30,7 +30,7 @@ app.get('/', (req, res) => {
         const listaItems = results.map(result => `<li>${result.name}</li>`).join('');
 
         // Cria a estrutura completa com título e lista de itens
-        const html = `<h1>${titulo}</h1><ul>${listaItems}</ul>`;
+        const html = `<h1>${titulo}</h1><h2>Atualize a página para gerar um novo registro :)</h2><ul>${listaItems}</ul>`;
 
         // Envia a resposta
         res.send(html);

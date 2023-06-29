@@ -30,7 +30,7 @@
         - node
 
     db:
-      image: mysql:5.7
+      build: ./build
       command: --innodb-use-native-aio=0
       container_name: mysql
       restart: always
@@ -39,7 +39,6 @@
         - MYSQL_ROOT_PASSWORD=root
       volumes:
         - ./mysql:/var/lib/mysql
-        - ./scripts:/docker-entrypoint-initdb.d
       networks: 
         - nginx-node
       ports:
