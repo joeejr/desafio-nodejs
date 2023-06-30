@@ -45,6 +45,8 @@
         - nginx-node
       ports:
         - "3306:3306"
+      permissions:
+        - "rw"
 
   networks:
     nginx-node:
