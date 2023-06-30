@@ -1,6 +1,6 @@
 FROM node:15
 
-COPY ./scripts/nodejs-entrypoint.sh /docker-entrypoint.d/
+COPY ./build/scripts/nodejs-entrypoint.sh /docker-entrypoint.sh
 
 WORKDIR /usr/src/app
 COPY . .
