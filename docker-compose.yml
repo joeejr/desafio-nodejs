@@ -45,7 +45,6 @@
         - nginx-node
       ports:
         - "3306:3306"
-      entrypoint: /bin/bash -c "chmod -R 777 /var/lib/mysql && exec docker-entrypoint.sh mysqld"
 
   networks:
     nginx-node:
