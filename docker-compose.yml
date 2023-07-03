@@ -15,6 +15,7 @@
         - nginx-node
       depends_on:
         - db
+      entrypoint: wait-for db:3306 -t 40 -- ./start.sh
     
     nginx:
       container_name: nginx
@@ -27,10 +28,12 @@
       networks: 
         - nginx-node
       depends_on:
+        - db
         - node
+      entrypoint: wait-for node:3000 -t 40 --
 
     db:
-      build: ./build
+      image: mysql:5.7
       command: --innodb-use-native-aio=0
       container_name: mysql
       restart: always
@@ -41,10 +44,18 @@
         - type: bind
           source: ./mysql
           target: /var/lib/mysql
+        - type: bind
+          source: ./build/scripts
+          target: /docker-entrypoint-initdb.d
       networks: 
         - nginx-node
       ports:
         - "3306:3306"
+      entrypoint: >
+        bash -c "
+        chmod -R 777 /var/lib/mysql &&
+        docker-entrypoint.sh mysqld &&
+        mysql -h localhost -u root -proot nodedb < /docker-entrypoint-initdb.d/initdb.sql"
 
   networks:
     nginx-node:
