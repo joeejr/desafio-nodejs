@@ -40,7 +40,7 @@
       volumes:
         - type: bind
           source: ./mysql
-          target: /var/lib/mysql
+          target: /var/lib/mysql:cached
         - type: bind
           source: ./build/scripts
           target: /docker-entrypoint-initdb.d
